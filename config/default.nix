@@ -91,7 +91,7 @@
 
     # nix
     nil
-    nixfmt-rfc-style
+    nixfmt
 
     # search
     ripgrep
