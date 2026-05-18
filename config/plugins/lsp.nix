@@ -103,20 +103,7 @@
         haskell = [ "fourmolu" ];
         nix = [ "nixfmt" ];
       };
-      format_on_save = {
-        lsp_fallback = false;
-        timeout_ms = 500;
-      };
     };
   };
 
-  # Format-on-save for languages whose LSP owns formatting (zig).
-  extraConfigLua = ''
-    local zig_format_group = vim.api.nvim_create_augroup("ZigFormatOnSave", { clear = true })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = zig_format_group,
-      pattern = "*.zig",
-      callback = function() vim.lsp.buf.format() end,
-    })
-  '';
 }
