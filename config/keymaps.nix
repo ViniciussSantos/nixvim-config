@@ -1,6 +1,6 @@
 {
   # Inline lua keymaps. Each entry: { mode, key, action, options.desc }.
-  # `lua = true` means `action` is a lua expression (function value).
+  # Lua keymaps use `action.__raw` so the string is emitted as raw lua.
   keymaps =
     let
       n = key: action: desc: {
@@ -23,16 +23,16 @@
         inherit key action;
         options = { inherit desc; silent = true; };
       };
-      luaN = key: action: desc: {
+      luaN = key: code: desc: {
         mode = "n";
-        inherit key action;
-        lua = true;
+        inherit key;
+        action.__raw = code;
         options = { inherit desc; silent = true; };
       };
-      luaNT = key: action: desc: {
+      luaNT = key: code: desc: {
         mode = [ "n" "t" ];
-        inherit key action;
-        lua = true;
+        inherit key;
+        action.__raw = code;
         options = { inherit desc; silent = true; };
       };
     in
@@ -135,8 +135,7 @@
       {
         mode = "v";
         key = "<leader>ghs";
-        action = ''function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end'';
-        lua = true;
+        action.__raw = ''function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end'';
         options = { desc = "Git stage hunk"; silent = true; };
       }
       (luaN "<leader>gb" ''function() require("gitsigns").blame_line({ full = false }) end'' "git blame")
@@ -150,8 +149,7 @@
       {
         mode = "v";
         key = "<leader>sw";
-        action = ''function() require("spectre").open_visual({ select_word = true }) end'';
-        lua = true;
+        action.__raw = ''function() require("spectre").open_visual({ select_word = true }) end'';
         options = { desc = "Spectre word"; silent = true; };
       }
     ];

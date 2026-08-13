@@ -13,13 +13,15 @@
 
     treesitter-textobjects = {
       enable = true;
-      select = {
-        enable = true;
-        lookahead = true;
-      };
-      move = {
-        enable = true;
-        setJumps = true;
+      settings = {
+        select = {
+          enable = true;
+          lookahead = true;
+        };
+        move = {
+          enable = true;
+          set_jumps = true;
+        };
       };
     };
   };
